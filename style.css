@@ -1,0 +1,26 @@
+body{
+    background-size: cover;
+    background-color: cadetblue
+}
+
+
+#main-play-area {
+    background-color: black;
+    max-width: 500px;
+    height: 550px;
+    margin: auto;
+}
+
+.rocketImg {
+    max-width: 10%;
+    position: absolute;
+    margin: auto;
+    top: 420px;
+    left: 245px
+}
+ 
+.start {
+    max-width: 500px;
+    position: absolute;
+    margin: auto;
+}
