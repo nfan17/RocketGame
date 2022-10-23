@@ -1,26 +1,40 @@
 body{
     background-size: cover;
-    background-color: cadetblue
+    background-color: cadetblue;
+    overflow: hidden;   
 }
 
 
-#main-play-area {
+#playArea {
     background-color: black;
+    position: relative;
     max-width: 500px;
     height: 550px;
     margin: auto;
+    overflow: hidden;
 }
 
 .rocketImg {
-    max-width: 10%;
+    max-width: 20%;
     position: absolute;
     margin: auto;
-    top: 420px;
-    left: 245px
+    background: url("images/image_rocket.png");
+    left: 50%;
+    bottom: 5px;
 }
  
 .start {
     max-width: 500px;
     position: absolute;
     margin: auto;
+}
+
+.asteroid {
+    position: absolute;
+    left: 5px;
+    width: 60px;
+    height: 60px;
+    background: url("images/asteroid.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
