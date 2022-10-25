@@ -1,5 +1,7 @@
 var rocketImg = document.querySelector(".rocketImg");
 var asteroidImg = document.querySelector(".asteroid");
+var stars = document.querySelector(".stars");
+var starCollec = [];
 var modif = 15;
 var count = 0;
 var start = document.querySelector(".start");
@@ -15,6 +17,7 @@ var startBlink = window.setInterval(() => {
 
 rocketImg.style.visibility = "hidden";
 asteroidImg.style.visibility = "hidden";
+stars.style.visibility = "hidden";
 
 window.addEventListener("keydown", (e) => {
     switch(e.key) {
@@ -39,26 +42,31 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
-var newAsteroids = window.setInterval(() => {
+var addStars = window.setInterval(() => {
     if (runGame) {
-    var asteroid = document.createElement("div");
-    asteroid.classList.add("asteroid");
-    asteroid.style.left = Math.floor(Math.random() * 430) + "px";
-    if (asteroid.style.top == 550) {
-        asteroid.style.display = "none";
+        var star = document.createElement("div");
+        star.classList.add("stars");
+        star.style.left = Math.floor(Math.random() * 498) + "px";
+        playArea.appendChild(star);
     }
-    else {
-        var size = Math.floor(Math.random() * (65 - 35) + 35) + "px";
-        asteroid.style.height = size;
-        asteroid.style.width = size;
-        playArea.appendChild(asteroid)
-    }
+}, 600);
+
+var addAsteroids = window.setInterval(() => {
+    if (runGame) {
+        var asteroid = document.createElement("div");
+        asteroid.classList.add("asteroid");
+        asteroid.style.left = Math.floor(Math.random() * 430) + "px";
+        var aSize = Math.floor(Math.random() * (65 - 35) + 35) + "px";
+        asteroid.style.height = aSize;
+        asteroid.style.width = aSize;
+        playArea.appendChild(asteroid);
     }
 }, 2000);
 
 var downMovement = window.setInterval(() => {
     var asters = document.getElementsByClassName("asteroid");
-    if (asters!=undefined) {
+    var stars = document.getElementsByClassName("stars");
+    if (asters != undefined) {
         for (var n = 0; n < asters.length; n++) {
             var asts = asters[n];
             var astTop = parseInt(window.getComputedStyle(asts).getPropertyValue("top"));
@@ -67,6 +75,13 @@ var downMovement = window.setInterval(() => {
         if (quadSpeed <= 4) {
             quadSpeed *= quadSpeed;
         }
+    }
+    if (stars != undefined) {
+        for (var n = 0; n < stars.length; n++) {
+            var s = stars[n];
+            var sTop = parseInt(window.getComputedStyle(s).getPropertyValue("top"));
+            s.style.top = sTop + 60 + "px";
+            }
     }
 }, 1000 / quadSpeed);
 
@@ -79,5 +94,6 @@ function startGame() {
     start.style.display = "none";
     count++;
 }
+
 
 
