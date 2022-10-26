@@ -6,7 +6,7 @@ var start = document.querySelector(".start");
 var restart = document.querySelector(".restart");
 var darken = document.querySelector(".darken");
 var playArea = document.querySelector("#playArea");
-var modif = 15;
+var modif = 20;
 var count = 0;
 var runGame = false;
 var gameOver = false;
@@ -39,23 +39,22 @@ window.addEventListener("keydown", (e) => {
                 restart.style.visibility = "hidden";
                 count = 0;
                 let asters = document.getElementsByClassName("asteroid");
-                let s = document.getElementsByClassName("stars");
-                while (asters.length > 0 && s.length > 0) {
+                while (asters.length > 0) {
                     playArea.removeChild(asters[0]);
-                    playArea.removeChild(s[0]);
                 }
                 darken.style.visibility = "hidden";
                 runGame = true;
+                quadSpeed = 1.05;
                 startGame();
             }
             break;
         case "ArrowLeft":
             if (runGame) {
-                if (parseInt(rocketImg.style.left) > -410) {
+                if (parseInt(rocketImg.style.left) > -450) {
                     rocketImg.style.left = parseInt(rocketImg.style.left) - modif 
                     + "px";
                 }
-                if (parseInt(rocketHBox.style.left) > -410) {
+                if (parseInt(rocketHBox.style.left) > -450) {
                     rocketHBox.style.left = parseInt(rocketHBox.style.left) - modif 
                     + "px";
                 }
@@ -63,11 +62,11 @@ window.addEventListener("keydown", (e) => {
             break;
         case "ArrowRight":
             if (runGame) {
-                if (parseInt(rocketImg.style.left) < 410) {
+                if (parseInt(rocketImg.style.left) < 450) {
                     rocketImg.style.left = parseInt(rocketImg.style.left) + modif 
                     + "px";
                 }
-                if (parseInt(rocketHBox.style.left) < 410) {
+                if (parseInt(rocketHBox.style.left) < 450) {
                     rocketHBox.style.left = parseInt(rocketHBox.style.left) + modif 
                     + "px";
                 }
@@ -113,7 +112,6 @@ var downMovement = window.setInterval(() => {
                     playArea.removeChild(asts);
                 }
             }
-            if (quadSpeed <= 15) {quadSpeed *= quadSpeed;}
         }
         if (stars != undefined) {
             for (var n = 0; n < stars.length; n++) {
@@ -122,8 +120,9 @@ var downMovement = window.setInterval(() => {
                 s.style.top = sTop + 60 + "px";
                 }
         }
+        delaySelf();
     }
-}, (ONE_SEC / quadSpeed));
+}, 100);
 
 // Check if rocket hits any asteroids
 var checkAstCollisions = window.setInterval(() => {
@@ -183,5 +182,9 @@ function gameStop() {
             else {restart.style.visibility = "hidden";}
         }, ONE_SEC);
     }, 1500);
+}
+
+function delaySelf() {
+
 }
 

@@ -28,10 +28,10 @@ body {
 /* GAME OBJECTS */
 .rocketHBox { 
     background: white; 
-    width: 20px;
+    width: 14px;
     height: 70px;
     position: relative; 
-    left: 48%;
+    left: 34%;
     top: 84%;
     margin: auto;
   } 
@@ -39,7 +39,7 @@ body {
     background: white; 
     content: ""; 
     height: 10px; 
-    left: -7.5px; 
+    left: -10px; 
     position: absolute; 
     top: 50px; 
     width: 35px; 
