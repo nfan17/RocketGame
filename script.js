@@ -10,7 +10,6 @@ var modif = 20;
 var count = 0;
 var runGame = false;
 var gameOver = false;
-var quadSpeed = 1.05;
 
 rocketImg.style.visibility = "hidden";
 rocketHBox.style.visibility = "hidden";
@@ -120,9 +119,8 @@ var downMovement = window.setInterval(() => {
                 s.style.top = sTop + 60 + "px";
                 }
         }
-        delaySelf();
     }
-}, 100);
+}, 800);
 
 // Check if rocket hits any asteroids
 var checkAstCollisions = window.setInterval(() => {
@@ -137,7 +135,7 @@ var checkAstCollisions = window.setInterval(() => {
             }
         }
     }
-}, 100);
+}, 500);
 
 // Start Game: Clear start screen and enable game functions
 function startGame() {
@@ -183,8 +181,3 @@ function gameStop() {
         }, ONE_SEC);
     }, 1500);
 }
-
-function delaySelf() {
-
-}
-
