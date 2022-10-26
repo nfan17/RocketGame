@@ -10,7 +10,7 @@ var runGame = false;
 var quadSpeed = 1.05;
 
 rocketImg.style.visibility = "hidden";
-rocketHBox.style.visibility = "hidden";
+//rocketHBox.style.visibility = "hidden";
 asteroidImg.style.visibility = "hidden";
 stars.style.visibility = "hidden";
 
@@ -103,7 +103,22 @@ var downMovement = window.setInterval(() => {
 }, (ONE_SEC / quadSpeed));
 
 // Check if rocket hits any asteroids
-var checkCollisions = window.setInterval(() => {
+var checkAstCollisions = window.setInterval(() => {
+    if (runGame) {
+        let asters = document.getElementsByClassName("asteroid");
+        if (asters != undefined) {
+            for (let n = 0; n < asters.length; n++) {
+                console.log(isOverlapping(asters[n], rocketHBox));
+                if (isOverlapping(asters[n], rocketHBox)) {
+                    gameStop();
+                }
+            }
+        }
+    }
+}, 100);
+
+// Make stars hidden when passing asteroids
+var checkStarCollisions = window.setInterval(() => {
     if (runGame) {
         let asters = document.getElementsByClassName("asteroid");
         if (asters != undefined) {
