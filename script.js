@@ -3,16 +3,21 @@ var rocketHBox = document.querySelector(".rocketHBox");
 var asteroidImg = document.querySelector(".asteroid");
 var stars = document.querySelector(".stars");
 var start = document.querySelector(".start");
-var playArea = document.querySelector("#playArea")
+var restart = document.querySelector(".restart");
+var darken = document.querySelector(".darken");
+var playArea = document.querySelector("#playArea");
 var modif = 15;
 var count = 0;
 var runGame = false;
+var gameOver = false;
 var quadSpeed = 1.05;
 
 rocketImg.style.visibility = "hidden";
-//rocketHBox.style.visibility = "hidden";
+rocketHBox.style.visibility = "hidden";
+darken.style.visibility = "hidden";
 asteroidImg.style.visibility = "hidden";
 stars.style.visibility = "hidden";
+restart.style.visibility = "hidden";
 
 // Start Screen
 const ONE_SEC = 1000;
@@ -29,26 +34,44 @@ window.addEventListener("keydown", (e) => {
                 runGame = true;
                 startGame();
             }
+            if (gameOver) {
+                gameOver = false;
+                restart.style.visibility = "hidden";
+                count = 0;
+                let asters = document.getElementsByClassName("asteroid");
+                let s = document.getElementsByClassName("stars");
+                while (asters.length > 0 && s.length > 0) {
+                    playArea.removeChild(asters[0]);
+                    playArea.removeChild(s[0]);
+                }
+                darken.style.visibility = "hidden";
+                runGame = true;
+                startGame();
+            }
             break;
         case "ArrowLeft":
-            if (parseInt(rocketImg.style.left) > -410) {
-                rocketImg.style.left = parseInt(rocketImg.style.left) - modif 
-                + "px";
-            }
-            if (parseInt(rocketHBox.style.left) > -410) {
-                rocketHBox.style.left = parseInt(rocketHBox.style.left) - modif 
-                + "px";
+            if (runGame) {
+                if (parseInt(rocketImg.style.left) > -410) {
+                    rocketImg.style.left = parseInt(rocketImg.style.left) - modif 
+                    + "px";
+                }
+                if (parseInt(rocketHBox.style.left) > -410) {
+                    rocketHBox.style.left = parseInt(rocketHBox.style.left) - modif 
+                    + "px";
+                }
             }
             break;
         case "ArrowRight":
-            if (parseInt(rocketImg.style.left) < 410) {
-                rocketImg.style.left = parseInt(rocketImg.style.left) + modif 
-                + "px";
-            }
-            if (parseInt(rocketHBox.style.left) < 410) {
-                rocketHBox.style.left = parseInt(rocketHBox.style.left) + modif 
-                + "px";
-            }
+            if (runGame) {
+                if (parseInt(rocketImg.style.left) < 410) {
+                    rocketImg.style.left = parseInt(rocketImg.style.left) + modif 
+                    + "px";
+                }
+                if (parseInt(rocketHBox.style.left) < 410) {
+                    rocketHBox.style.left = parseInt(rocketHBox.style.left) + modif 
+                    + "px";
+                }
+            } 
             break;
     }
 });
@@ -108,22 +131,7 @@ var checkAstCollisions = window.setInterval(() => {
         let asters = document.getElementsByClassName("asteroid");
         if (asters != undefined) {
             for (let n = 0; n < asters.length; n++) {
-                console.log(isOverlapping(asters[n], rocketHBox));
-                if (isOverlapping(asters[n], rocketHBox)) {
-                    gameStop();
-                }
-            }
-        }
-    }
-}, 100);
-
-// Make stars hidden when passing asteroids
-var checkStarCollisions = window.setInterval(() => {
-    if (runGame) {
-        let asters = document.getElementsByClassName("asteroid");
-        if (asters != undefined) {
-            for (let n = 0; n < asters.length; n++) {
-                console.log(isOverlapping(asters[n], rocketHBox));
+                //console.log(isOverlapping(asters[n], rocketHBox));
                 if (isOverlapping(asters[n], rocketHBox)) {
                     gameStop();
                 }
@@ -141,6 +149,7 @@ function startGame() {
     rocketHBox.style.position = "absolute";
     rocketHBox.style.left = 0;
     rocketHBox.style.right = 0;
+    asteroidImg.style.visibility = "visible";
     clearInterval(startBlink)
     start.style.display = "none";
     count++;
@@ -160,15 +169,19 @@ function isOverlapping(a, b) {
 function gameStop() {
     setTimeout(() => {
         runGame = false;
-    }, 100);
+    }, 50);
     var hit = setInterval(() => {
         if (rocketImg.style.visibility == "hidden") {rocketImg.style.visibility = "visible";}
-    else {rocketImg.style.visibility = "hidden";}
-    }, 300);
+        else {rocketImg.style.visibility = "hidden";}
+    }, 350);
     setTimeout(() => {
         clearInterval(hit);
+        darken.style.visibility = "visible";
+        gameOver = true;
+        startBlink = window.setInterval(() => { 
+            if (restart.style.visibility == "hidden") {restart.style.visibility = "visible";}
+            else {restart.style.visibility = "hidden";}
+        }, ONE_SEC);
     }, 1500);
 }
-
-
 
